@@ -41,12 +41,12 @@ class MainActivity : ComponentActivity() {
 
 // Enums and Data Classes
 enum class CableType(val description: String) {
-    BARE_COPPER("Неизолированные провода и шины: медные"),
-    BARE_ALUMINUM("Неизолированные провода и шины: алюминиевые"),
-    PAPER_RUBBER_COPPER("Кабели с бумажною і провода с гумовою та полівінілхлоридною ізоляцією з жилами: медными"),
-    PAPER_RUBBER_ALUMINUM("Кабели с бумажною і провода с гумовою та полівінілхлоридною ізоляцією з жилами: алюминиевыми"),
-    RUBBER_PLASTIC_COPPER("Кабели с гумовою та пластмасовою ізоляцією з жилами: медными"),
-    RUBBER_PLASTIC_ALUMINUM("Кабели с гумовою та пластмасовою ізоляцією з жилами: алюминиевыми")
+    BARE_COPPER("Неізольовані проводи та шини: мідні"),
+    BARE_ALUMINUM("Неізольовані проводи та шини: алюмінієві"),
+    PAPER_RUBBER_COPPER("Кабелі з паперовою і проводи з гумовою та полівінілхлоридною ізоляцією з жилами: мідними"),
+    PAPER_RUBBER_ALUMINUM("Кабелі з паперовою і проводи з гумовою та полівінілхлоридною ізоляцією з жилами: алюмінієвими"),
+    RUBBER_PLASTIC_COPPER("Кабелі з гумовою та пластмасовою ізоляцією з жилами: мідними"),
+    RUBBER_PLASTIC_ALUMINUM("Кабелі з гумовою та пластмасовою ізоляцією з жилами: алюмінієвими")
 }
 
 data class EconomicCurrentDensity(
@@ -72,7 +72,7 @@ fun MainScreen() {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Электрические расчеты") },
+                title = { Text("Електричні розрахунки") },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer
                 )
@@ -88,7 +88,7 @@ fun MainScreen() {
                 Tab(
                     selected = selectedTab == 0,
                     onClick = { selectedTab = 0 },
-                    text = { Text("Выбор кабеля") }
+                    text = { Text("Вибір кабелю") }
                 )
                 Tab(
                     selected = selectedTab == 1,
@@ -98,7 +98,7 @@ fun MainScreen() {
                 Tab(
                     selected = selectedTab == 2,
                     onClick = { selectedTab = 2 },
-                    text = { Text("Режимы ПС") }
+                    text = { Text("(Режими  ПС") }
                 )
             }
 
@@ -134,7 +134,7 @@ fun CableSelectionScreen() {
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
                 Text(
-                    "Параметры расчета",
+                    "Параметри розрахунку",
                     style = MaterialTheme.typography.titleMedium,
                     modifier = Modifier.padding(bottom = 8.dp)
                 )
@@ -142,7 +142,7 @@ fun CableSelectionScreen() {
                 OutlinedTextField(
                     value = transformerPower,
                     onValueChange = { transformerPower = it },
-                    label = { Text("Мощность трансформатора (кВА)") },
+                    label = { Text("Потужність трансформатора (кВА)") },
                     modifier = Modifier.fillMaxWidth()
                 )
 
@@ -151,7 +151,7 @@ fun CableSelectionScreen() {
                 OutlinedTextField(
                     value = voltage,
                     onValueChange = { voltage = it },
-                    label = { Text("Напряжение (кВ)") },
+                    label = { Text("Напруга (кВ)") },
                     modifier = Modifier.fillMaxWidth()
                 )
 
@@ -160,7 +160,7 @@ fun CableSelectionScreen() {
                 OutlinedTextField(
                     value = loadFactor,
                     onValueChange = { loadFactor = it },
-                    label = { Text("Коэффициент загрузки") },
+                    label = { Text("Коефіцієнт завантаження") },
                     modifier = Modifier.fillMaxWidth()
                 )
 
@@ -169,7 +169,7 @@ fun CableSelectionScreen() {
                 OutlinedTextField(
                     value = annualUsageHours,
                     onValueChange = { annualUsageHours = it },
-                    label = { Text("Время использования максимума (ч/год)") },
+                    label = { Text("Час використання максимуму (год/рік)") },
                     modifier = Modifier.fillMaxWidth()
                 )
             }
@@ -182,7 +182,7 @@ fun CableSelectionScreen() {
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
                 Text(
-                    "Тип кабеля",
+                    "Тип кабелю",
                     style = MaterialTheme.typography.titleMedium,
                     modifier = Modifier.padding(bottom = 8.dp)
                 )
@@ -230,7 +230,7 @@ fun CableSelectionScreen() {
                     loadFactor.isNotEmpty() &&
                     annualUsageHours.isNotEmpty()
         ) {
-            Text("Рассчитать")
+            Text("Розрахувати")
         }
 
         result?.let { cableResult ->
@@ -241,14 +241,14 @@ fun CableSelectionScreen() {
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Text(
-                        "Результаты расчета",
+                        "Результати розрахунку",
                         style = MaterialTheme.typography.titleMedium,
                         modifier = Modifier.padding(bottom = 8.dp)
                     )
-                    Text("Расчетный ток: ${cableResult.current.format(2)} А")
-                    Text("Экономическая плотность тока: ${cableResult.economicDensity.format(2)} А/мм²")
-                    Text("Рекомендуемое сечение: ${cableResult.crossSection.format(2)} мм²")
-                    Text("Выбранный тип кабеля: ${cableResult.cableType.description}")
+                    Text("Розрахунковий струм: ${cableResult.current.format(2)} А")
+                    Text("Економічна щільність струму: ${cableResult.economicDensity.format(2)} А/мм²")
+                    Text("Рекомендований переріз: ${cableResult.crossSection.format(2)} мм²")
+                    Text("Обраний тип кабелю: ${cableResult.cableType.description}")
                 }
             }
         }
@@ -268,20 +268,16 @@ fun calculateCableParameters(
     annualUsageHours: Double,
     cableType: CableType
 ): CableResult {
-    // Расчет номинального тока
     val current = (transformerPower * 1000) / (sqrt(3.0) * voltage * 1000)
 
-    // Расчет расчетного тока
     val calculatedCurrent = current * loadFactor
 
-    // Определение экономической плотности тока
     val economicDensity = when {
         annualUsageHours <= 3000 -> economicDensityMap[cableType]?.upTo3000
         annualUsageHours <= 5000 -> economicDensityMap[cableType]?.upTo5000
         else -> economicDensityMap[cableType]?.above5000
     } ?: 1.0
 
-    // Расчет сечения кабеля
     val crossSection = calculatedCurrent / economicDensity
 
     return CableResult(
@@ -312,7 +308,7 @@ fun ShortCircuitCalculationScreen() {
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
                 Text(
-                    "Параметры системы",
+                    "Параметри системи",
                     style = MaterialTheme.typography.titleMedium,
                     modifier = Modifier.padding(bottom = 8.dp)
                 )
@@ -320,7 +316,7 @@ fun ShortCircuitCalculationScreen() {
                 OutlinedTextField(
                     value = systemPower,
                     onValueChange = { systemPower = it },
-                    label = { Text("Мощность системы (МВА)") },
+                    label = { Text("потужність системи(МВА)") },
                     modifier = Modifier.fillMaxWidth()
                 )
 
@@ -329,7 +325,7 @@ fun ShortCircuitCalculationScreen() {
                 OutlinedTextField(
                     value = systemVoltage,
                     onValueChange = { systemVoltage = it },
-                    label = { Text("Напряжение системы (кВ)") },
+                    label = { Text("Напруга системи(кВ)") },
                     modifier = Modifier.fillMaxWidth()
                 )
             }
@@ -345,7 +341,7 @@ fun ShortCircuitCalculationScreen() {
             modifier = Modifier.fillMaxWidth(),
             enabled = systemPower.isNotEmpty() && systemVoltage.isNotEmpty()
         ) {
-            Text("Рассчитать")
+            Text("Розрахувати")
         }
 
         result?.let { scResult ->
@@ -356,13 +352,13 @@ fun ShortCircuitCalculationScreen() {
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Text(
-                        "Результаты расчета",
+                        "Результати розрахунку",
                         style = MaterialTheme.typography.titleMedium,
                         modifier = Modifier.padding(bottom = 8.dp)
                     )
-                    Text("Ток КЗ: ${scResult.shortCircuitCurrent.format(2)} кА")
-                    Text("Ударный ток: ${scResult.peakCurrent.format(2)} кА")
-                    Text("Мощность КЗ: ${scResult.shortCircuitPower.format(2)} МВА")
+                    Text("Стурм КЗ: ${scResult.shortCircuitCurrent.format(2)} кА")
+                    Text("Ударний ток: ${scResult.peakCurrent.format(2)} кА")
+                    Text("Потужність КЗ: ${scResult.shortCircuitPower.format(2)} МВА")
                 }
             }
         }
@@ -411,7 +407,7 @@ fun SubstationModesScreen() {
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
                 Text(
-                    "Режим работы",
+                    "Режими роботи",
                     style = MaterialTheme.typography.titleMedium,
                     modifier = Modifier.padding(bottom = 8.dp)
                 )
@@ -420,17 +416,17 @@ fun SubstationModesScreen() {
                     Tab(
                         selected = selectedMode == 0,
                         onClick = { selectedMode = 0 },
-                        text = { Text("Нормальный") }
+                        text = { Text("Нормальний") }
                     )
                     Tab(
                         selected = selectedMode == 1,
                         onClick = { selectedMode = 1 },
-                        text = { Text("Минимальный") }
+                        text = { Text("Мінімальний") }
                     )
                     Tab(
                         selected = selectedMode == 2,
                         onClick = { selectedMode = 2 },
-                        text = { Text("Аварийный") }
+                        text = { Text("Аварійний") }
                     )
                 }
 
@@ -439,7 +435,7 @@ fun SubstationModesScreen() {
                 OutlinedTextField(
                     value = systemPower,
                     onValueChange = { systemPower = it },
-                    label = { Text("Мощность системы (МВА)") },
+                    label = { Text("Потужність системи (МВА)") },
                     modifier = Modifier.fillMaxWidth()
                 )
             }
@@ -455,7 +451,7 @@ fun SubstationModesScreen() {
             modifier = Modifier.fillMaxWidth(),
             enabled = systemPower.isNotEmpty()
         ) {
-            Text("Рассчитать")
+            Text("Розрахувати")
         }
 
         result?.let { modeResult ->
@@ -466,13 +462,13 @@ fun SubstationModesScreen() {
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Text(
-                        "Результаты расчета",
+                        "Результати розрахунку",
                         style = MaterialTheme.typography.titleMedium,
                         modifier = Modifier.padding(bottom = 8.dp)
                     )
                     Text("Режим: ${modeResult.modeName}")
-                    Text("Ток КЗ: ${modeResult.shortCircuitCurrent.format(2)} кА")
-                    Text("Мощность КЗ: ${modeResult.shortCircuitPower.format(2)} МВА")
+                    Text("Струм КЗ: ${modeResult.shortCircuitCurrent.format(2)} кА")
+                    Text("Потужність КЗ: ${modeResult.shortCircuitPower.format(2)} МВА")
                 }
             }
         }
@@ -489,10 +485,10 @@ fun calculateSubstationMode(
     mode: Int
 ): SubstationModeResult {
     val (modeName, powerFactor) = when (mode) {
-        0 -> Pair("Нормальный", 1.0)
-        1 -> Pair("Минимальный", 0.6)
-        2 -> Pair("Аварийный", 1.2)
-        else -> Pair("Неизвестный", 1.0)
+        0 -> Pair("Нормальний", 1.0)
+        1 -> Pair("Мінімальний", 0.6)
+        2 -> Pair("Аварійний", 1.2)
+        else -> Pair("Невідомий", 1.0)
     }
 
     val actualPower = systemPower * powerFactor
